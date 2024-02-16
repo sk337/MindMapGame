@@ -44,6 +44,11 @@ func _input(event):
 		if event is InputEventMouseMotion and dragging:
 			global_position = event.global_position + drag_offset
 			#print("Dragging: ", dragging, " Position: ", global_position)
+func get_global_rect() -> Rect2:
+	var color_rect = get_node("ColorRect") as ColorRect
+	var rect_pos = color_rect.global_position
+	var rect_size = color_rect.rect_size
+	return Rect2(rect_pos, rect_size)
 
 func set_text(content: String):
 	var rich_text_label = get_node("RichTextLabel") as RichTextLabel
