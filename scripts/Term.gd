@@ -21,16 +21,18 @@ func _ready():
 func _input(event):
 	if current_tool == Tools.MOVE:
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-			var color_rect = get_node("ColorRect") as ColorRect
+			# Get the term's global Rect2
+			var term_rect = get_global_rect()
+#
 			# Convert mouse event position to the Node2D's local space
-			var local_mouse_pos = to_local(event.global_position)
-			var rect_min_pos = color_rect.position
-			var rect_max_pos = rect_min_pos + color_rect.size
+#			var local_mouse_pos = to_local(event.global_position)
+#			var rect_min_pos = color_rect.position
+#			var rect_max_pos = rect_min_pos + color_rect.size
 			#print("event: ", event)
 
 			# Check if the click is within the bounds of the ColorRect
-			if event.pressed and local_mouse_pos.x >= rect_min_pos.x and local_mouse_pos.y >= rect_min_pos.y and local_mouse_pos.x <= rect_max_pos.x and local_mouse_pos.y <= rect_max_pos.y:
-				drag_offset = rect_min_pos - to_local(event.global_position)
+			if event.pressed and term_rect.has_point(event.global_position):
+				drag_offset = to_local(term_rect.position) - to_local(event.global_position)
 				dragging = true
 				#print("Dragging: ", dragging)
 				# Optionally, raise to ensure it's drawn on top while moving
@@ -47,7 +49,7 @@ func _input(event):
 func get_global_rect() -> Rect2:
 	var color_rect = get_node("ColorRect") as ColorRect
 	var rect_pos = color_rect.global_position
-	var rect_size = color_rect.rect_size
+	var rect_size = color_rect.size
 	return Rect2(rect_pos, rect_size)
 
 func set_text(content: String):
