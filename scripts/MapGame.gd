@@ -33,13 +33,19 @@ func process_json(json_data):
 	#print(json_data)
 	var current_position = Vector2(50, 50)
 	var term_offset = Vector2(0, 60)
-	var column_width = 200 #width of each term
+	var column_width = 150 #width of each term
+	var screen_height = DisplayServer.screen_get_size().y # get the window height
+	
 	if json_data.size() > 0:
 		var just_items = json_data["just_items"]
 		if just_items.size() > 0:
 			for i in range(just_items.size()):
 				var term_name = just_items[i]
-				current_position = current_position + term_offset # staggered position
+				if current_position.y + term_offset.y > screen_height:
+					#start a new column
+					current_position.y = term_offset.y
+					current_position.x += column_width
+				current_position += term_offset # staggered position
 				instantiate_term(term_name, current_position)
 
 func instantiate_term(term_name: String, position: Vector2):
