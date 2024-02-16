@@ -1,0 +1,479 @@
+{
+    "just_items": [
+        "Cells", "Parietal Cells", "Mast Cells", "Skeletal Muscle Cells", "Neuron",
+        "Central Nervous System (CNS)", "Peripheral Nervous System (PNS)", "Brain",
+        "Spinal Cord", "Somatic Nervous System (SNS)", "Autonomic Nervous System (ANS)",
+        "Sympathetic System", "Parasympathetic System", "Glial Cells", "Action Potential",
+        "Neurotransmitters"
+    ],
+    "categories": [
+        "Cell Types", "Body Systems", "CNS Components", "PNS Divisions", "Nervous System Functions"
+    ],
+    "item_data": 
+[
+  {
+    "name": "Cells",
+    "level": "1",
+    "categories": {
+      "Cell Types": 1.0,
+      "Body Systems": 0.9,
+      "CNS Components": 0.01,
+      "PNS Divisions": 0.01,
+      "Nervous System Functions": 0.2
+    },
+    "relatedness": {
+      "Cells": 1.0,
+      "Parietal Cells": 0.5,
+      "Mast Cells": 0.5,
+      "Skeletal Muscle Cells": 0.5,
+      "Neuron": 0.5,
+      "Central Nervous System (CNS)": 0.5,
+      "Peripheral Nervous System (PNS)": 0.5,
+      "Brain": 0.5,
+      "Spinal Cord": 0.5,
+      "Somatic Nervous System (SNS)": 0.5,
+      "Autonomic Nervous System (ANS)": 0.5,
+      "Sympathetic System": 0.5,
+      "Parasympathetic System": 0.5,
+      "Glial Cells": 0.5,
+      "Action Potential": 0.5,
+      "Neurotransmitters": 0.5
+    }
+  },
+  {
+    "name": "Parietal Cells",
+    "level": "2",
+    "categories": {
+      "Cell Types": 1.0,
+      "Body Systems": 0.9,
+      "CNS Components": 0.01,
+      "PNS Divisions": 0.01,
+      "Nervous System Functions": 0.01
+    },
+    "relatedness": {
+      "Cells": 0.8,
+      "Parietal Cells": 1.0,
+      "Mast Cells": 0.1,
+      "Skeletal Muscle Cells": 0.1,
+      "Neuron": 0.1,
+      "Central Nervous System (CNS)": 0.1,
+      "Peripheral Nervous System (PNS)": 0.1,
+      "Brain": 0.1,
+      "Spinal Cord": 0.1,
+      "Somatic Nervous System (SNS)": 0.1,
+      "Autonomic Nervous System (ANS)": 0.1,
+      "Sympathetic System": 0.1,
+      "Parasympathetic System": 0.1,
+      "Glial Cells": 0.1,
+      "Action Potential": 0.1,
+      "Neurotransmitters": 0.1
+    }
+  },
+  {
+    "name": "Mast Cells",
+    "level": "2",
+    "categories": {
+      "Cell Types": 1.0,
+      "Body Systems": 0.9,
+      "CNS Components": 0.01,
+      "PNS Divisions": 0.01,
+      "Nervous System Functions": 0.5
+    },
+    "relatedness": {
+      "Cells": 0.8,
+      "Parietal Cells": 0.1,
+      "Mast Cells": 1.0,
+      "Skeletal Muscle Cells": 0.2,
+      "Neuron": 0.4,
+      "Central Nervous System (CNS)": 0.3,
+      "Peripheral Nervous System (PNS)": 0.3,
+      "Brain": 0.2,
+      "Spinal Cord": 0.2,
+      "Somatic Nervous System (SNS)": 0.3,
+      "Autonomic Nervous System (ANS)": 0.5,
+      "Sympathetic System": 0.5,
+      "Parasympathetic System": 0.5,
+      "Glial Cells": 0.4,
+      "Action Potential": 0.3,
+      "Neurotransmitters": 0.4
+    }
+  },
+  {
+    "name": "Skeletal Muscle Cells",
+    "level": "2",
+    "categories": {
+      "Cell Types": 1.0,
+      "Body Systems": 0.9,
+      "CNS Components": 0.01,
+      "PNS Divisions": 0.01,
+      "Nervous System Functions": 0.01
+    },
+    "relatedness": {
+      "Cells": 0.8,
+      "Parietal Cells": 0.1,
+      "Mast Cells": 0.2,
+      "Skeletal Muscle Cells": 1.0,
+      "Neuron": 0.6,
+      "Central Nervous System (CNS)": 0.4,
+      "Peripheral Nervous System (PNS)": 0.4,
+      "Brain": 0.3,
+      "Spinal Cord": 0.3,
+      "Somatic Nervous System (SNS)": 0.7,
+      "Autonomic Nervous System (ANS)": 0.4,
+      "Sympathetic System": 0.4,
+      "Parasympathetic System": 0.4,
+      "Glial Cells": 0.5,
+      "Action Potential": 0.6,
+      "Neurotransmitters": 0.5
+    }
+  },
+  {
+    "name": "Neuron",
+    "level": "2",
+    "categories": {
+      "Cell Types": 1.0,
+      "Body Systems": 0.01,
+      "CNS Components": 0.9,
+      "PNS Divisions": 0.8,
+      "Nervous System Functions": 1.0
+    },
+    "relatedness": {
+      "Cells": 0.5,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.4,
+      "Skeletal Muscle Cells": 0.6,
+      "Neuron": 1.0,
+      "Central Nervous System (CNS)": 0.9,
+      "Peripheral Nervous System (PNS)": 0.8,
+      "Brain": 0.9,
+      "Spinal Cord": 0.9,
+      "Somatic Nervous System (SNS)": 0.7,
+      "Autonomic Nervous System (ANS)": 0.7,
+      "Sympathetic System": 0.6,
+      "Parasympathetic System": 0.6,
+      "Glial Cells": 0.8,
+      "Action Potential": 0.9,
+      "Neurotransmitters": 0.9
+    }
+  },
+  {
+    "name": "Central Nervous System (CNS)",
+    "level": "1",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.9,
+      "CNS Components": 1.0,
+      "PNS Divisions": 0.5,
+      "Nervous System Functions": 0.9
+    },
+    "relatedness": {
+      "Cells": 0.3,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.3,
+      "Skeletal Muscle Cells": 0.4,
+      "Neuron": 0.9,
+      "Central Nervous System (CNS)": 1.0,
+      "Peripheral Nervous System (PNS)": 0.8,
+      "Brain": 1.0,
+      "Spinal Cord": 1.0,
+      "Somatic Nervous System (SNS)": 0.5,
+      "Autonomic Nervous System (ANS)": 0.5,
+      "Sympathetic System": 0.4,
+      "Parasympathetic System": 0.4,
+      "Glial Cells": 0.8,
+      "Action Potential": 0.9,
+      "Neurotransmitters": 0.7
+    }
+  },
+  {
+    "name": "Peripheral Nervous System (PNS)",
+    "level": "1",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.9,
+      "CNS Components": 0.5,
+      "PNS Divisions": 1.0,
+      "Nervous System Functions": 0.9
+    },
+    "relatedness": {
+      "Cells": 0.3,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.3,
+      "Skeletal Muscle Cells": 0.4,
+      "Neuron": 0.8,
+      "Central Nervous System (CNS)": 0.8,
+      "Peripheral Nervous System (PNS)": 1.0,
+      "Brain": 0.8,
+      "Spinal Cord": 0.8,
+      "Somatic Nervous System (SNS)": 0.7,
+      "Autonomic Nervous System (ANS)": 0.9,
+      "Sympathetic System": 0.9,
+      "Parasympathetic System": 0.9,
+      "Glial Cells": 0.5,
+      "Action Potential": 0.7,
+      "Neurotransmitters": 0.6
+    }
+  },
+  {
+    "name": "Brain",
+    "level": "1",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.9,
+      "CNS Components": 1.0,
+      "PNS Divisions": 0.5,
+      "Nervous System Functions": 0.9
+    },
+    "relatedness": {
+      "Cells": 0.4,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.2,
+      "Skeletal Muscle Cells": 0.3,
+      "Neuron": 0.9,
+      "Central Nervous System (CNS)": 1.0,
+      "Peripheral Nervous System (PNS)": 0.8,
+      "Brain": 1.0,
+      "Spinal Cord": 0.9,
+      "Somatic Nervous System (SNS)": 0.5,
+      "Autonomic Nervous System (ANS)": 0.5,
+      "Sympathetic System": 0.4,
+      "Parasympathetic System": 0.4,
+      "Glial Cells": 0.8,
+      "Action Potential": 0.9,
+      "Neurotransmitters": 0.7
+    }
+  },
+  {
+    "name": "Spinal Cord",
+    "level": "1",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.9,
+      "CNS Components": 1.0,
+      "PNS Divisions": 0.5,
+      "Nervous System Functions": 0.9
+    },
+    "relatedness": {
+      "Cells": 0.4,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.2,
+      "Skeletal Muscle Cells": 0.3,
+      "Neuron": 0.9,
+      "Central Nervous System (CNS)": 1.0,
+      "Peripheral Nervous System (PNS)": 0.8,
+      "Brain": 1.0,
+      "Spinal Cord": 1.0,
+      "Somatic Nervous System (SNS)": 0.7,
+      "Autonomic Nervous System (ANS)": 0.5,
+      "Sympathetic System": 0.5,
+      "Parasympathetic System": 0.5,
+      "Glial Cells": 0.8,
+      "Action Potential": 0.9,
+      "Neurotransmitters": 0.7
+    }
+  },
+  {
+    "name": "Somatic Nervous System (SNS)",
+    "level": "2",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.9,
+      "CNS Components": 0.5,
+      "PNS Divisions": 0.7,
+      "Nervous System Functions": 1.0
+    },
+    "relatedness": {
+      "Cells": 0.3,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.3,
+      "Skeletal Muscle Cells": 0.7,
+      "Neuron": 0.7,
+      "Central Nervous System (CNS)": 0.5,
+      "Peripheral Nervous System (PNS)": 0.7,
+      "Brain": 0.5,
+      "Spinal Cord": 0.7,
+      "Somatic Nervous System (SNS)": 1.0,
+      "Autonomic Nervous System (ANS)": 0.9,
+      "Sympathetic System": 0.8,
+      "Parasympathetic System": 0.8,
+      "Glial Cells": 0.5,
+      "Action Potential": 0.7,
+      "Neurotransmitters": 0.6
+    }
+  },
+  {
+    "name": "Autonomic Nervous System (ANS)",
+    "level": "2",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.9,
+      "CNS Components": 0.5,
+      "PNS Divisions": 0.9,
+      "Nervous System Functions": 1.0
+    },
+    "relatedness": {
+      "Cells": 0.3,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.5,
+      "Skeletal Muscle Cells": 0.4,
+      "Neuron": 0.7,
+      "Central Nervous System (CNS)": 0.5,
+      "Peripheral Nervous System (PNS)": 0.9,
+      "Brain": 0.5,
+      "Spinal Cord": 0.5,
+      "Somatic Nervous System (SNS)": 0.9,
+      "Autonomic Nervous System (ANS)": 1.0,
+      "Sympathetic System": 0.9,
+      "Parasympathetic System": 0.9,
+      "Glial Cells": 0.6,
+      "Action Potential": 0.7,
+      "Neurotransmitters": 0.8
+    }
+  },
+  {
+    "name": "Sympathetic System",
+    "level": "2",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.9,
+      "CNS Components": 0.4,
+      "PNS Divisions": 0.9,
+      "Nervous System Functions": 1.0
+    },
+    "relatedness": {
+      "Cells": 0.2,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.4,
+      "Skeletal Muscle Cells": 0.5,
+      "Neuron": 0.6,
+      "Central Nervous System (CNS)": 0.4,
+      "Peripheral Nervous System (PNS)": 0.9,
+      "Brain": 0.4,
+      "Spinal Cord": 0.4,
+      "Somatic Nervous System (SNS)": 0.8,
+      "Autonomic Nervous System (ANS)": 0.9,
+      "Sympathetic System": 1.0,
+      "Parasympathetic System": 0.5,
+      "Glial Cells": 0.5,
+      "Action Potential": 0.6,
+      "Neurotransmitters": 0.7
+    }
+  },
+  {
+    "name": "Parasympathetic System",
+    "level": "2",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.9,
+      "CNS Components": 0.4,
+      "PNS Divisions": 0.9,
+      "Nervous System Functions": 1.0
+    },
+    "relatedness": {
+      "Cells": 0.2,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.4,
+      "Skeletal Muscle Cells": 0.5,
+      "Neuron": 0.6,
+      "Central Nervous System (CNS)": 0.4,
+      "Peripheral Nervous System (PNS)": 0.9,
+      "Brain": 0.4,
+      "Spinal Cord": 0.4,
+      "Somatic Nervous System (SNS)": 0.8,
+      "Autonomic Nervous System (ANS)": 0.9,
+      "Sympathetic System": 0.5,
+      "Parasympathetic System": 1.0,
+      "Glial Cells": 0.5,
+      "Action Potential": 0.6,
+      "Neurotransmitters": 0.7
+    }
+  },
+  {
+    "name": "Glial Cells",
+    "level": "2",
+    "categories": {
+      "Cell Types": 1.0,
+      "Body Systems": 0.01,
+      "CNS Components": 0.8,
+      "PNS Divisions": 0.5,
+      "Nervous System Functions": 0.7
+    },
+    "relatedness": {
+      "Cells": 0.5,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.4,
+      "Skeletal Muscle Cells": 0.5,
+      "Neuron": 0.8,
+      "Central Nervous System (CNS)": 0.8,
+      "Peripheral Nervous System (PNS)": 0.5,
+      "Brain": 0.8,
+      "Spinal Cord": 0.8,
+      "Somatic Nervous System (SNS)": 0.5,
+      "Autonomic Nervous System (ANS)": 0.6,
+      "Sympathetic System": 0.5,
+      "Parasympathetic System": 0.5,
+      "Glial Cells": 1.0,
+      "Action Potential": 0.7,
+      "Neurotransmitters": 0.6
+    }
+  },
+  {
+    "name": "Action Potential",
+    "level": "3",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.01,
+      "CNS Components": 0.9,
+      "PNS Divisions": 0.7,
+      "Nervous System Functions": 1.0
+    },
+    "relatedness": {
+      "Cells": 0.4,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.3,
+      "Skeletal Muscle Cells": 0.5,
+      "Neuron": 0.9,
+      "Central Nervous System (CNS)": 0.9,
+      "Peripheral Nervous System (PNS)": 0.7,
+      "Brain": 0.9,
+      "Spinal Cord": 0.9,
+      "Somatic Nervous System (SNS)": 0.7,
+      "Autonomic Nervous System (ANS)": 0.7,
+      "Sympathetic System": 0.6,
+      "Parasympathetic System": 0.6,
+      "Glial Cells": 0.7,
+      "Action Potential": 1.0,
+      "Neurotransmitters": 0.9
+    }
+  },
+  {
+    "name": "Neurotransmitters",
+    "level": "3",
+    "categories": {
+      "Cell Types": 0.01,
+      "Body Systems": 0.01,
+      "CNS Components": 0.7,
+      "PNS Divisions": 0.6,
+      "Nervous System Functions": 1.0
+    },
+    "relatedness": {
+      "Cells": 0.3,
+      "Parietal Cells": 0.01,
+      "Mast Cells": 0.4,
+      "Skeletal Muscle Cells": 0.4,
+      "Neuron": 0.9,
+      "Central Nervous System (CNS)": 0.7,
+      "Peripheral Nervous System (PNS)": 0.6,
+      "Brain": 0.7,
+      "Spinal Cord": 0.7,
+      "Somatic Nervous System (SNS)": 0.6,
+      "Autonomic Nervous System (ANS)": 0.8,
+      "Sympathetic System": 0.7,
+      "Parasympathetic System": 0.7,
+      "Glial Cells": 0.6,
+      "Action Potential": 0.9,
+      "Neurotransmitters": 1.0
+    }
+  }
+]
+}
