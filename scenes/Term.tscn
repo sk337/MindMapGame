@@ -1,19 +1,22 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3vs6pjkpv125"]
+[gd_scene load_steps=3 format=3 uid="uid://c3vs6pjkpv125"]
 
 [ext_resource type="Script" path="res://scripts/Term.gd" id="1_epxdy"]
+[ext_resource type="Script" path="res://scripts/MyRichTextLabel.gd" id="2_6y6fy"]
 
 [node name="Term" type="Node2D"]
 script = ExtResource("1_epxdy")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(100, 50)
+custom_minimum_size = Vector2(155, 50)
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.709804, 0.709804, 0.709804, 1)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 custom_minimum_size = Vector2(100, 50)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 5.0
+offset_right = 155.0
+offset_bottom = 50.0
+script = ExtResource("2_6y6fy")
 
 [node name="Line2D" type="Line2D" parent="."]
