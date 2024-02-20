@@ -10,6 +10,8 @@ var drag_offset = Vector2()
 var dragging = false
 var original_z_index = 0
 var num_drops = 0
+var MapGame = null
+var old_global_position = Vector2()
 
 enum Tools {MOVE, CONNECT}
 var current_tool = Tools.MOVE
@@ -37,8 +39,15 @@ func _input(event):
 				num_drops += 1
 
 		if event is InputEventMouseMotion and dragging:
+			old_global_position = global_position
 			global_position = event.global_position + drag_offset
+			update_connected_lines_position()
 			#print("Dragging: ", dragging, " Position: ", global_position)
+func update_connected_lines_position():
+	#notify MapGame.gd to update the lines connected to this term
+	if MapGame:
+		MapGame.update_lines_for_term(self)
+
 func get_global_rect() -> Rect2:
 	var color_rect = get_node("ColorRect") as ColorRect
 	var rect_pos = color_rect.global_position

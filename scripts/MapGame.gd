@@ -6,6 +6,7 @@ enum Tools {MOVE, CONNECT}
 var current_tool = Tools.MOVE
 var first_clicked_term = null
 var line_in_progress = null
+var term_connections = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -70,6 +71,8 @@ func process_json(json_data):
 					current_position.x += column_width
 				current_position += term_offset # staggered position
 				instantiate_term(term_name, current_position, term_index, term_level, term_category_ranks, term_term_ranks)
+				term_connections[i] = {"start_lines": [], "end_lines": []}
+				
 
 func instantiate_term(term_name: String, my_position: Vector2, index: int, level: int, category_ranks: Dictionary, term_ranks: Dictionary):
 	var term_scene: PackedScene = load(term_scene_path)
@@ -83,7 +86,7 @@ func instantiate_term(term_name: String, my_position: Vector2, index: int, level
 		term_instance.category_ranks = category_ranks
 		term_instance.term_ranks = term_ranks
 		term_instance.add_to_group("terms") #add to the group "terms"
-
+		term_instance.MapGame = self
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -108,6 +111,9 @@ func _input(event):
 					var second_clicked_term = clicked_term
 					if second_clicked_term != first_clicked_term:
 						line_in_progress.set_point_position(1, second_clicked_term.global_position - first_clicked_term.get_global_position())
+						#update global connections
+						term_connections[first_clicked_term.term_index]["start_lines"].append(line_in_progress)
+						term_connections[second_clicked_term.term_index]["end_lines"].append(line_in_progress)
 						# set up signaling for dragging around
 						# set up updating dictionary / list of connections
 						#reset for next connection
@@ -124,7 +130,27 @@ func _input(event):
 			if first_clicked_term and line_in_progress:
 				line_in_progress.set_point_position(1, first_clicked_term.to_local(event.global_position))
 
-
+func update_lines_for_term(changed_term):
+	# move start and end points of lines where this term is the start
+	for line in term_connections[changed_term.term_index]["start_lines"]:
+		# Calculate the previous global position of the line's start point
+		var line_parent = line.get_parent()
+		var end_point_global = line.get_global_position() + line.get_point_position(1)
+		# Calculate the new global position for the start point
+		var new_start_point_global = changed_term.get_global_position()
+		# Calculate the delta
+		var delta = changed_term.get_global_position() - changed_term.old_global_position
+		print(delta)
+		# Apply the delta to the line's start point
+		var new_start_local = line.to_local(new_start_point_global)
+		line.set_point_position(0, new_start_local)
+		# Apply the delta to the line's end point (if the term is the start term)
+		var new_end_local = line.to_local(end_point_global - delta)
+		line.set_point_position(1, new_end_local)
+	# move end points of lines wher ethis term is the end
+	for line in term_connections[changed_term.term_index]["end_lines"]:
+		line.set_point_position(1, changed_term.get_global_position() - line.get_parent().get_global_position())
+		
 func _on_move_tool_button_pressed():
 	current_tool = Tools.MOVE
 	for term in get_tree().get_nodes_in_group("terms"):
