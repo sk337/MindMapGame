@@ -23,13 +23,6 @@ func _input(event):
 		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 			# Get the term's global Rect2
 			var term_rect = get_global_rect()
-#
-			# Convert mouse event position to the Node2D's local space
-#			var local_mouse_pos = to_local(event.global_position)
-#			var rect_min_pos = color_rect.position
-#			var rect_max_pos = rect_min_pos + color_rect.size
-			#print("event: ", event)
-
 			# Check if the click is within the bounds of the ColorRect
 			if event.pressed and term_rect.has_point(event.global_position):
 				drag_offset = to_local(term_rect.position) - to_local(event.global_position)

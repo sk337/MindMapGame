@@ -4,6 +4,8 @@ var json_path = "res://data/NeuronsData.json"
 var term_scene_path = "res://scenes/Term.tscn"
 enum Tools {MOVE, CONNECT}
 var current_tool = Tools.MOVE
+var first_clicked_term = null
+var line_in_progress = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -90,7 +92,38 @@ func _input(event):
 	if current_tool == Tools.MOVE:
 		pass # done in script for items
 	elif current_tool == Tools.CONNECT:
-		pass
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			var clicked_term = get_clicked_term(event.position)
+#			var clicked_name = clicked_term.get_node("RichTextLabel").text
+#			print("clicked ", clicked_name)
+			if clicked_term != null:
+				if not first_clicked_term:
+					#this is first click, start the line
+					first_clicked_term = clicked_term
+					line_in_progress = Line2D.new()
+					first_clicked_term.add_child(line_in_progress)
+					line_in_progress.add_point(first_clicked_term.get_local_mouse_position())
+					line_in_progress.add_point(first_clicked_term.get_local_mouse_position())
+				else: #second click, finish line
+					var second_clicked_term = clicked_term
+					if second_clicked_term != first_clicked_term:
+						line_in_progress.set_point_position(1, second_clicked_term.global_position - first_clicked_term.get_global_position())
+						# set up signaling for dragging around
+						# set up updating dictionary / list of connections
+						#reset for next connection
+						first_clicked_term = null
+						line_in_progress = null
+			elif first_clicked_term and line_in_progress:
+				# we didn't click a term
+				first_clicked_term.remove_child(line_in_progress)
+				line_in_progress.queue_free()
+				line_in_progress = null
+				first_clicked_term = null
+		else: #input was not a mouse button
+			#handle movement mid-line creation
+			if first_clicked_term and line_in_progress:
+				line_in_progress.set_point_position(1, first_clicked_term.to_local(event.global_position))
+
 
 func _on_move_tool_button_pressed():
 	current_tool = Tools.MOVE
@@ -101,3 +134,10 @@ func _on_connect_terms_tool_button_pressed():
 	current_tool = Tools.CONNECT
 	for term in get_tree().get_nodes_in_group("terms"):
 		term.set_tool_mode("connect")
+
+func get_clicked_term(click_position) -> Node2D:
+	for term in get_tree().get_nodes_in_group("terms"):
+		if term.get_global_rect().has_point(click_position):
+			print(term.name)
+			return term
+	return null
