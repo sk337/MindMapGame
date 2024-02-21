@@ -105,6 +105,8 @@ func _input(event):
 					first_clicked_term = clicked_term
 					line_in_progress = Line2D.new()
 					first_clicked_term.add_child(line_in_progress)
+					line_in_progress.width = 2 # set the width
+					line_in_progress.z_index = 0 # behind the terms
 					line_in_progress.add_point(first_clicked_term.get_local_mouse_position())
 					line_in_progress.add_point(first_clicked_term.get_local_mouse_position())
 				else: #second click, finish line
@@ -128,7 +130,8 @@ func _input(event):
 		else: #input was not a mouse button
 			#handle movement mid-line creation
 			if first_clicked_term and line_in_progress:
-				line_in_progress.set_point_position(1, first_clicked_term.to_local(event.global_position))
+				if event.global_position:
+					line_in_progress.set_point_position(1, first_clicked_term.to_local(event.global_position))
 
 func update_lines_for_term(changed_term):
 	# move start and end points of lines where this term is the start
@@ -140,16 +143,17 @@ func update_lines_for_term(changed_term):
 		var new_start_point_global = changed_term.get_global_position()
 		# Calculate the delta
 		var delta = changed_term.get_global_position() - changed_term.old_global_position
-		print(delta)
 		# Apply the delta to the line's start point
 		var new_start_local = line.to_local(new_start_point_global)
 		line.set_point_position(0, new_start_local)
 		# Apply the delta to the line's end point (if the term is the start term)
 		var new_end_local = line.to_local(end_point_global - delta)
 		line.set_point_position(1, new_end_local)
+		line.z_index = 0
 	# move end points of lines wher ethis term is the end
 	for line in term_connections[changed_term.term_index]["end_lines"]:
 		line.set_point_position(1, changed_term.get_global_position() - line.get_parent().get_global_position())
+		line.z_index = 0
 		
 func _on_move_tool_button_pressed():
 	current_tool = Tools.MOVE
