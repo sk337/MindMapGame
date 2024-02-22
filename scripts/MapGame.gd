@@ -2,6 +2,7 @@ extends Node2D
 # the path to the JSON file
 var json_path = "res://data/NeuronsData.json"
 var term_scene_path = "res://scenes/Term.tscn"
+var connector_line_scene_path = "res://scenes/ConnectorLine.tscn"
 enum Tools {MOVE, CONNECT}
 var current_tool = Tools.MOVE
 var first_clicked_term = null
@@ -88,6 +89,14 @@ func instantiate_term(term_name: String, my_position: Vector2, index: int, level
 		term_instance.add_to_group("terms") #add to the group "terms"
 		term_instance.MapGame = self
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
+func instantiate_connector_line() -> ConnectorLine:
+	var connector_line_scene = preload("res://scenes/ConnectorLine.tscn")
+	var connector_line = connector_line_scene.instantiate() as ConnectorLine
+	# set up connector line with additional properties if necessary
+	return connector_line
+	
+
 func _process(delta):
 	pass
 
@@ -103,8 +112,9 @@ func _input(event):
 				if not first_clicked_term:
 					#this is first click, start the line
 					first_clicked_term = clicked_term
-					line_in_progress = Line2D.new()
+					line_in_progress = instantiate_connector_line()
 					first_clicked_term.add_child(line_in_progress)
+					line_in_progress.setup_connector(first_clicked_term.term_index, -1)
 					line_in_progress.width = 2 # set the width
 					line_in_progress.z_index = 0 # behind the terms
 					line_in_progress.add_point(first_clicked_term.get_local_mouse_position())
@@ -113,6 +123,7 @@ func _input(event):
 					var second_clicked_term = clicked_term
 					if second_clicked_term != first_clicked_term:
 						line_in_progress.set_point_position(1, second_clicked_term.global_position - first_clicked_term.get_global_position())
+						line_in_progress.setup_connector(first_clicked_term.term_index, second_clicked_term.term_index)
 						#update global connections
 						term_connections[first_clicked_term.term_index]["start_lines"].append(line_in_progress)
 						term_connections[second_clicked_term.term_index]["end_lines"].append(line_in_progress)
@@ -130,7 +141,7 @@ func _input(event):
 		else: #input was not a mouse button
 			#handle movement mid-line creation
 			if first_clicked_term and line_in_progress:
-				if event.global_position:
+				if not event is InputEventGesture and event.global_position:
 					line_in_progress.set_point_position(1, first_clicked_term.to_local(event.global_position))
 
 func update_lines_for_term(changed_term):
@@ -155,10 +166,94 @@ func update_lines_for_term(changed_term):
 		line.set_point_position(1, changed_term.get_global_position() - line.get_parent().get_global_position())
 		line.z_index = 0
 		
+func calculate_score():
+	var base_score = 10
+	var total_connections = 0
+	var terms_count = term_connections.size()
+	var penalty_for_low_relatedness = 0.75 # penalty for low relatedness
+	var high_relatedness_bonus = 1.5 # bonus multiplier for high relatedness connections
+	var high_relatedness_value = 0.9
+	var base_score_per_high_relatedness_connection = high_relatedness_value * 10 * high_relatedness_bonus
+	
+	# Hypothetical very high score calculation (for normalizing later)
+	var hypothetical_max_connections = terms_count # assuming one high quality connection per term
+	var a_very_high_score = base_score + hypothetical_max_connections * base_score_per_high_relatedness_connection
+	
+	# Calculate base score from connections
+	for term_index in term_connections:
+		var term_data = term_connections[term_index]
+		for connection in term_data["start_lines"]:
+			var end_term_index = connection.get_connected_term_index()
+			var relatedness = get_relatedness(term_index, end_term_index)
+			if relatedness > 0.8: # considered high relatedness
+				base_score += relatedness * 10 * high_relatedness_bonus
+			elif relatedness < 0.3: # considered low relatedness
+				base_score -= (1 - relatedness) * 10 * penalty_for_low_relatedness
+			else:
+				base_score += relatedness * 5
+			
+			# Extra credit for heiarchal (sp?) level connections
+			var origin_level = get_level(term_index)
+			var end_level = get_level(end_term_index)
+			if origin_level == 1 and end_level == 2: #top level to mid level
+				base_score +=5 #extra credit for 1->2 connection
+			elif origin_level == 2 and end_level == 3:
+				base_score +=2 #extra credit for 2->3 connection
+			
+			total_connections += 1
+	# Calculate complexity penalty
+	var penalty_threshold = terms_count * 1.1
+	var complexity_penalty_multiplier = 1.0
+	if total_connections > penalty_threshold:
+		var excess_connections = total_connections - penalty_threshold
+		complexity_penalty_multiplier = max(0.1, 1 - excess_connections / (terms_count * 1.1))
+		
+	var final_score = base_score * complexity_penalty_multiplier
+	# final_score = round(final_score * 10) / 10  # Rounds to one decimal place
+	print("final score: ", final_score)
+	print("a very high score: ", a_very_high_score)
+	
+	# Normalization
+	var normalized_score = (final_score / a_very_high_score) * 1000
+	normalized_score = round(normalized_score *10) / 10 #round normalized score to one decimal
+	print("normalized_score: ", normalized_score)
+	return normalized_score
+
+func get_relatedness(term_index_1, term_index_2) -> float:
+	#retrieve the term instances from the scene tree
+	var term_instance_1 = get_term_instance_by_index(term_index_1)
+	var term_instance_2 = get_term_instance_by_index(term_index_2)
+	
+	# retrieve the name of term 2 to use it as a key in the term_ranks of term 1.
+	var term_2_name = term_instance_2.get_node("RichTextLabel").text
+	
+	# get the relatedness value from term 1's term ranks.
+	var relatedness = 0.1
+	if term_2_name in term_instance_1.term_ranks:
+		relatedness = term_instance_1.term_ranks[term_2_name]
+	else:
+		relatedness = 0.1
+	return relatedness
+
+func get_level(term_index: int) -> int:
+	var term_instance = get_term_instance_by_index(term_index)
+	if term_instance != null:
+		return term_instance.term_level
+	return -1 # In case the term doesn't exist or something went wrong
+
+func get_term_instance_by_index(desired_term_index: int) -> Node:
+	var terms = get_tree().get_nodes_in_group("terms")
+	#assuming all terms are children of this node
+	for term in terms:
+		if term.term_index == desired_term_index:
+			return term
+	return null
+
 func _on_move_tool_button_pressed():
 	current_tool = Tools.MOVE
 	for term in get_tree().get_nodes_in_group("terms"):
 		term.set_tool_mode("move")
+	calculate_score()
 
 func _on_connect_terms_tool_button_pressed():
 	current_tool = Tools.CONNECT
@@ -168,6 +263,12 @@ func _on_connect_terms_tool_button_pressed():
 func get_clicked_term(click_position) -> Node2D:
 	for term in get_tree().get_nodes_in_group("terms"):
 		if term.get_global_rect().has_point(click_position):
-			print(term.name)
+			# print(term.name)
 			return term
 	return null
+
+
+func _on_calculate_score_button_pressed():
+	var score = calculate_score()
+	$UI/ScoreBox.text = "Score: " + str(score)
+	$UI/ScoreBox.visible = true

@@ -40,5 +40,18 @@ text = "Move Tool"
 layout_mode = 2
 text = "Connect Tool"
 
+[node name="CalculateScoreButton" type="Button" parent="UI/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Calculate Score"
+
+[node name="ScoreBox" type="RichTextLabel" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 1024.0
+offset_top = 51.0
+offset_right = 1141.0
+offset_bottom = 94.0
+
 [connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/MoveToolButton" to="." method="_on_move_tool_button_pressed"]
 [connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/ConnectTermsToolButton" to="." method="_on_connect_terms_tool_button_pressed"]
+[connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/CalculateScoreButton" to="." method="_on_calculate_score_button_pressed"]

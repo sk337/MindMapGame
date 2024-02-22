@@ -40,8 +40,9 @@ func _input(event):
 
 		if event is InputEventMouseMotion and dragging:
 			old_global_position = global_position
-			global_position = event.global_position + drag_offset
-			update_connected_lines_position()
+			if event.global_position:
+				global_position = event.global_position + drag_offset
+				update_connected_lines_position()
 			#print("Dragging: ", dragging, " Position: ", global_position)
 func update_connected_lines_position():
 	#notify MapGame.gd to update the lines connected to this term
