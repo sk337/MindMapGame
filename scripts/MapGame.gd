@@ -1,6 +1,7 @@
 extends Node2D
 # the path to the JSON file
-var json_path = "res://data/NeuronsData.json"
+#var json_path = "res://data/NeuronsData.json"
+var json_path = "res://data/NonMendel.json"
 var term_scene_path = "res://scenes/Term.tscn"
 var connector_line_scene_path = "res://scenes/ConnectorLine.tscn"
 enum Tools {MOVE, CONNECT}
@@ -141,8 +142,9 @@ func _input(event):
 		else: #input was not a mouse button
 			#handle movement mid-line creation
 			if first_clicked_term and line_in_progress:
-				if not event is InputEventGesture and event.global_position:
-					line_in_progress.set_point_position(1, first_clicked_term.to_local(event.global_position))
+				if event is InputEventMouseMotion :
+					if event.global_position:
+						line_in_progress.set_point_position(1, first_clicked_term.to_local(event.global_position))
 
 func update_lines_for_term(changed_term):
 	# move start and end points of lines where this term is the start
@@ -253,7 +255,7 @@ func _on_move_tool_button_pressed():
 	current_tool = Tools.MOVE
 	for term in get_tree().get_nodes_in_group("terms"):
 		term.set_tool_mode("move")
-	calculate_score()
+	# calculate_score()
 
 func _on_connect_terms_tool_button_pressed():
 	current_tool = Tools.CONNECT
@@ -266,7 +268,6 @@ func get_clicked_term(click_position) -> Node2D:
 			# print(term.name)
 			return term
 	return null
-
 
 func _on_calculate_score_button_pressed():
 	var score = calculate_score()

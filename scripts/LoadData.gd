@@ -1,7 +1,8 @@
 extends Node2D
 
 # the path to the JSON file
-var json_path = "res://data/NeuronsData.json"
+# var json_path = "res://data/NeuronsData.json"
+var json_path = "res://data/NonMendel.json"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
