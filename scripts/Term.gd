@@ -13,7 +13,7 @@ var num_drops = 0
 var MapGame = null
 var old_global_position = Vector2()
 
-enum Tools {MOVE, CONNECT}
+enum Tools {MOVE, CONNECT, DISCONNECT}
 var current_tool = Tools.MOVE
 
 # Called when the node enters the scene tree for the first time.
@@ -69,6 +69,8 @@ func set_tool_mode(new_mode: String):
 		current_tool = Tools.MOVE
 	elif new_mode == "connect":
 		current_tool = Tools.CONNECT	
+	elif new_mode == "disconnect":
+		current_tool == Tools.DISCONNECT
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

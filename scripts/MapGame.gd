@@ -4,7 +4,7 @@ extends Node2D
 var json_path = "res://data/NonMendel.json"
 var term_scene_path = "res://scenes/Term.tscn"
 var connector_line_scene_path = "res://scenes/ConnectorLine.tscn"
-enum Tools {MOVE, CONNECT}
+enum Tools {MOVE, CONNECT, DISCONNECT}
 var current_tool = Tools.MOVE
 var first_clicked_term = null
 var line_in_progress = null
@@ -145,6 +145,12 @@ func _input(event):
 				if event is InputEventMouseMotion :
 					if event.global_position:
 						line_in_progress.set_point_position(1, first_clicked_term.to_local(event.global_position))
+	elif current_tool == Tools.DISCONNECT:
+		# disconnect logic
+		if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+			var clicked_term = get_clicked_term(event.position)
+			if clicked_term != null:
+				disconnect_term(clicked_term)
 
 func update_lines_for_term(changed_term):
 	# move start and end points of lines where this term is the start
@@ -273,3 +279,47 @@ func _on_calculate_score_button_pressed():
 	var score = calculate_score()
 	$UI/ScoreBox.text = "Score: " + str(score)
 	$UI/ScoreBox.visible = true
+
+
+func _on_disconnect_pressed():
+	current_tool = Tools.DISCONNECT
+	for term in get_tree().get_nodes_in_group("terms"):
+		term.set_tool_mode("disconnect")
+
+func disconnect_term(term: Node2D):
+	var term_index = term.term_index
+	var to_free = []
+
+	# Gather lines connected to the term to be freed.
+	for line in term_connections[term_index]["start_lines"]:
+		to_free.append(line)
+	for line in term_connections[term_index]["end_lines"]:
+		to_free.append(line)
+
+	# Clear the references in the current term's connection data.
+	term_connections[term_index]["start_lines"] = []
+	term_connections[term_index]["end_lines"] = []
+
+	# Remove references in other terms' connection data where this term is involved.
+	for other_term_index in term_connections:
+		if other_term_index == term_index:
+			continue  # Skip the current term.
+
+		# Filter out the disconnected lines from start lines.
+		var filtered_start_lines = []
+		for line in term_connections[other_term_index]["start_lines"]:
+			if not line in to_free:
+				filtered_start_lines.append(line)
+		term_connections[other_term_index]["start_lines"] = filtered_start_lines
+
+		# Filter out the disconnected lines from end lines.
+		var filtered_end_lines = []
+		for line in term_connections[other_term_index]["end_lines"]:
+			if not line in to_free:
+				filtered_end_lines.append(line)
+		term_connections[other_term_index]["end_lines"] = filtered_end_lines
+
+	# Now free the lines after they've been removed from all references.
+	for line in to_free:
+		if is_instance_valid(line):
+			line.queue_free()

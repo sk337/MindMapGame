@@ -40,6 +40,10 @@ text = "Move Tool"
 layout_mode = 2
 text = "Connect Tool"
 
+[node name="Disconnect" type="Button" parent="UI/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Disconnect"
+
 [node name="CalculateScoreButton" type="Button" parent="UI/CenterContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Calculate Score"
@@ -54,4 +58,5 @@ offset_bottom = 94.0
 
 [connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/MoveToolButton" to="." method="_on_move_tool_button_pressed"]
 [connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/ConnectTermsToolButton" to="." method="_on_connect_terms_tool_button_pressed"]
+[connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/Disconnect" to="." method="_on_disconnect_pressed"]
 [connection signal="pressed" from="UI/CenterContainer/VBoxContainer/HBoxContainer/CalculateScoreButton" to="." method="_on_calculate_score_button_pressed"]
